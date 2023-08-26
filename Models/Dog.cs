@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PhotosService.Models
 {
-    public class User
+    public class Dog
     {
         [Key]
         [Required]
@@ -12,9 +12,11 @@ namespace PhotosService.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public int RankInSystem { get; set; }
+        public string Race { get; set; }
         [Required]
-        public int NumberOfDogs { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        [Required]
+        public int OwnersId { get; set; }
        
         public ICollection<Photo> Photos { get; set; } = new List<Photo>();
     }

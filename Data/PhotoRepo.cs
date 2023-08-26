@@ -10,46 +10,46 @@ namespace PhotosService.Data
         {
             _context = context;
         }
-        public void CreatePhoto(int userId, Photo photo)
+        public void CreatePhoto(int dogId, Photo photo)
         {
             if(photo == null)
             {
                 throw new ArgumentNullException(nameof(photo));
             }
-            photo.UserId = userId;
+            photo.DogId = dogId;
             _context.Photos.Add(photo);
 
         }
 
-        public void CreateUser(User user)
+        public void CreateDog(Dog dog)
         {
-            if(user == null)
+            if(dog == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException(nameof(dog));
             }
-            _context.Users.Add(user);
+            _context.Dogs.Add(dog);
         }
 
-        public bool ExternalUserExists(int externalUserId)
+        public bool ExternalDogExists(int externalDogId)
         {
-             return _context.Users.Any(u => u.ExternalID == externalUserId);
+             return _context.Dogs.Any(u => u.ExternalID == externalDogId);
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<Dog> GetAllDogs()
         {
-            return _context.Users.ToList();
+            return _context.Dogs.ToList();
         }
 
-        public Photo GetPhoto(int userId, int photoId)
+        public Photo GetPhoto(int dogId, int photoId)
         {
             return _context.Photos
-                .Where(f => f.UserId == userId && f.Id == photoId).FirstOrDefault();
+                .Where(f => f.DogId == dogId && f.Id == photoId).FirstOrDefault();
         }
 
-        public IEnumerable<Photo> GetPhotosForUser(int userId)
+        public IEnumerable<Photo> GetPhotosOfDog(int dogId)
         {
-            return _context.Photos.Where(f=> f.UserId == userId)
-            .OrderBy(f=>f.User.Name);
+            return _context.Photos.Where(f=> f.DogId == dogId)
+            .OrderBy(f=>f.dog.Name);
         }
 
         public bool SaveChanges()
@@ -57,9 +57,9 @@ namespace PhotosService.Data
             return (_context.SaveChanges() >= 0);
         }
 
-        public bool UserExists(int userId)
+        public bool DogExists(int dogId)
         {
-            return _context.Users.Any(u => u.Id == userId);
+            return _context.Dogs.Any(u => u.Id == dogId);
         }
     }
 }

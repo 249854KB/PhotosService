@@ -1,0 +1,19 @@
+syntax = "proto3";
+option csharp_namespace = "DogsService";
+
+service GrpcDog{
+    rpc GetAllDogs (GetAllRequestDog) returns (DogResponse);
+}
+message GetAllRequestDog {}
+
+message GrpcDogModel {
+    int32 Id = 1;
+    string Name = 2;
+    string Race = 3;
+    string DateOfBirth = 4;
+    int32 UserId  = 5;
+}
+
+message DogResponse {
+    repeated GrpcDogModel dog = 1;
+}

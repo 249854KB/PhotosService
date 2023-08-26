@@ -25,8 +25,8 @@ namespace PhotosService.EventProcessing
 
             switch (eventType)
             {
-                case EventType.UserPublished:
-                    addUser(message);
+                case EventType.DogPublished:
+                    addDog(message);
                     break;
                 default:
                     break;
@@ -41,41 +41,41 @@ namespace PhotosService.EventProcessing
 
             switch(eventType.Event)
             {
-                case "User_Published":
-                    Console.WriteLine("--> User Published Event Detected");
-                    return EventType.UserPublished;
+                case "Dog_Published":
+                    Console.WriteLine("--> Dog Published Event Detected");
+                    return EventType.DogPublished;
                 default:
                     Console.WriteLine("--> Could not determine the event type");
                     return EventType.Undetermined;
             }
         }
 
-        private void addUser(string userPublishedMessage)
+        private void addDog(string dogPublishedMessage)
         {
             using (var scope = _scopeFactory.CreateScope())
             {
                 var repo = scope.ServiceProvider.GetRequiredService<IPhotoRepo>();
                 
-                var userPublishedDto = JsonSerializer.Deserialize<UserPublishedDto>(userPublishedMessage);
+                var dogPublishedDto = JsonSerializer.Deserialize<DogPublishedDto>(dogPublishedMessage);
 
                 try
                 {
-                    var plat = _mapper.Map<User>(userPublishedDto);
-                    if(!repo.ExternalUserExists(plat.ExternalID))
+                    var plat = _mapper.Map<Dog>(dogPublishedDto);
+                    if(!repo.ExternalDogExists(plat.ExternalID))
                     {
-                        repo.CreateUser(plat);
+                        repo.CreateDog(plat);
                         repo.SaveChanges();
-                        Console.WriteLine("--> User added!");
+                        Console.WriteLine("--> Dog added!");
                     }
                     else
                     {
-                        Console.WriteLine("--> User already exisits...");
+                        Console.WriteLine("--> Dog already exisits...");
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"--> Could not add User to DB {ex.Message}");
+                    Console.WriteLine($"--> Could not add Dog to DB {ex.Message}");
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace PhotosService.EventProcessing
 
     enum EventType
     {
-        UserPublished,
+        DogPublished,
         Undetermined
     }
 }

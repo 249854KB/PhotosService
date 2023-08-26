@@ -4,32 +4,32 @@ using AutoMapper;
 using PhotosService.Models;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Configuration;
-using UserService;
+using DogsService;
 
 namespace PhotosService.SyncDataServices.Grpc
 {
-    public class UserDataClient : IUserDataClient
+    public class DogDataClient : IDogDataClient
     {
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
-        public UserDataClient(IConfiguration configuration, IMapper mapper)
+        public DogDataClient(IConfiguration configuration, IMapper mapper)
         {
             _configuration = configuration;
             _mapper = mapper;
         }
 
-        public IEnumerable<User> ReturnAllUsers()
+        public IEnumerable<Dog> ReturnAllDogs()
         {
-            Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcUser"]}");
-            var channel = GrpcChannel.ForAddress(_configuration["GrpcUser"]);
-            var client = new GrpcUser.GrpcUserClient(channel);
-            var request = new GetAllRequest();
+            Console.WriteLine($"--> Calling GRPC Service {_configuration["GrpcDog"]}");
+            var channel = GrpcChannel.ForAddress(_configuration["GrpcDog"]);
+            var client = new GrpcDog.GrpcDogClient(channel);
+            var request = new GetAllRequestDog();
 
             try
             {
-                var reply = client.GetAllUsers(request);
-                return _mapper.Map<IEnumerable<User>>(reply.User);
+                var reply = client.GetAllDogs(request);
+                return _mapper.Map<IEnumerable<Dog>>(reply.Dog);
             }
             catch (Exception ex)
             {

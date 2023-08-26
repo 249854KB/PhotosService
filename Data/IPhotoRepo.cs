@@ -5,14 +5,14 @@ namespace PhotosService.Data
     public interface IPhotoRepo
     {
         bool SaveChanges();
-        IEnumerable<User> GetAllUsers();
-        void CreateUser(User user);
-        bool UserExists(int externalUserId);
+        IEnumerable<Dog> GetAllDogs();
+        void CreateDog(Dog dog);
+        bool DogExists(int externalDogId);
 
-        bool ExternalUserExists(int userId);
+        bool ExternalDogExists(int dogId);
 
-        IEnumerable<Photo> GetPhotosForUser(int userId);
-        Photo GetPhoto(int userId, int photoId);
-        void CreatePhoto(int userId, Photo photo);
+        IEnumerable<Photo> GetPhotosOfDog(int dogId);
+        Photo GetPhoto(int dogId, int photoId);
+        void CreatePhoto(int dogId, Photo photo);
     }
 }

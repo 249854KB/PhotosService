@@ -10,20 +10,20 @@ namespace PhotosService.Data
         {
             using(var servicesScope  = applicationBuilder.ApplicationServices.CreateScope())
             {
-                var grpcClient = servicesScope.ServiceProvider.GetService<IUserDataClient>();
-                var users = grpcClient.ReturnAllUsers();
-                SeedData(servicesScope.ServiceProvider.GetService<IPhotoRepo>(),users);
+                var grpcClient = servicesScope.ServiceProvider.GetService<IDogDataClient>();
+                var dogs = grpcClient.ReturnAllDogs();
+                SeedData(servicesScope.ServiceProvider.GetService<IPhotoRepo>(),dogs);
             }
         }
-        private static void SeedData(IPhotoRepo repo, IEnumerable<User> users)
+        private static void SeedData(IPhotoRepo repo, IEnumerable<Dog> dogs)
         {
-            Console.WriteLine("Seeding new users...");
+            Console.WriteLine("Seeding new dogs...");
 
-            foreach (var user in users)
+            foreach (var dog in dogs)
             {
-                if(!repo.ExternalUserExists(user.ExternalID))
+                if(!repo.ExternalDogExists(dog.ExternalID))
                 {
-                    repo.CreateUser(user);
+                    repo.CreateDog(dog);
                 }
                 repo.SaveChanges();
             }

@@ -3,8 +3,8 @@ using PhotosService.Models;
 
 namespace PhotosService.SyncDataServices.Grpc
 {
-    public interface IUserDataClient
+    public interface IDogDataClient
     {
-        IEnumerable<User> ReturnAllUsers();
+        IEnumerable<Dog> ReturnAllDogs();
     }
 }

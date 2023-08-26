@@ -7,24 +7,24 @@ using System;
 
 namespace PhotosService.Controllers
 {
-    [Route("api/f/[controller]")]
+    [Route("api/p/[controller]")]
     [ApiController]
-    public class UsersController: ControllerBase
+    public class DogsController: ControllerBase
     {
         private readonly IPhotoRepo _repository;
         private readonly IMapper _mapper;
 
-        public UsersController(IPhotoRepo repository, IMapper mapper)
+        public DogsController(IPhotoRepo repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<UserReadDto>> GetUsers()
+        public ActionResult<IEnumerable<DogReadDto>> GetDogs()
         {
-            Console.WriteLine("-->> Getting User From Photo service");
-            var userItems = _repository.GetAllUsers();
-            return Ok(_mapper.Map<IEnumerable<UserReadDto>>(userItems));
+            Console.WriteLine("-->> Getting Dog From Photo service");
+            var dogItems = _repository.GetAllDogs();
+            return Ok(_mapper.Map<IEnumerable<DogReadDto>>(dogItems));
         }
         [HttpPost]
         public ActionResult TestInboundConnection()

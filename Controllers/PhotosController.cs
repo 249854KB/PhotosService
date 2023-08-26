@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PhotosService.Controllers
 {
-    [Route("api/photos/dogs/{dogId}/[controller]")]
+    [Route("api/p/users/{userId}/dogs/{dogId}/[controller]")]
     [ApiController]
     public class PhotosController : ControllerBase
     {
@@ -56,7 +56,7 @@ namespace PhotosService.Controllers
             return Ok(_mapper.Map<PhotoReadDto>(photo));
         }
 
-        [HttpPost]
+        [HttpPut]
         public ActionResult<PhotoReadDto> AddPhotoOfDog(int dogId, PhotoCreateDto photoDto)
         {
              Console.WriteLine($"--> Hit CreatePhotoOfDog: {dogId}");

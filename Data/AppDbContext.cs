@@ -9,22 +9,22 @@ namespace PhotosService.Data
         {
 
         }
-        public DbSet<User> Users{ get; set; }
+        public DbSet<Dog> Dogs{ get; set; }
         public DbSet<Photo> Photos{ get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-            .Entity<User>()
+            .Entity<Dog>()
             .HasMany(u => u.Photos)
-            .WithOne(u=> u.User!)
-            .HasForeignKey(u=>u.UserId);
+            .WithOne(u=> u.dog!)
+            .HasForeignKey(u=>u.DogId);
 
             modelBuilder
             .Entity<Photo>()
-            .HasOne(u=>u.User)
+            .HasOne(u=>u.dog)
             .WithMany(u=>u.Photos)
-            .HasForeignKey(u=>u.UserId);
+            .HasForeignKey(u=>u.DogId);
         }
     }
 }
