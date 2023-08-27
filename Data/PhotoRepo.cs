@@ -40,13 +40,13 @@ namespace PhotosService.Data
             return _context.Dogs.ToList();
         }
 
-        public Photo GetPhoto(int dogId, int photoId)
+        public Photo GetPhotoOfDog(int UserId, int dogId, int photoId)
         {
             return _context.Photos
                 .Where(f => f.DogId == dogId && f.Id == photoId).FirstOrDefault();
         }
 
-        public IEnumerable<Photo> GetPhotosOfDog(int dogId)
+        public IEnumerable<Photo> GetPhotosOfDog(int userId, int dogId)
         {
             return _context.Photos.Where(f=> f.DogId == dogId)
             .OrderBy(f=>f.dog.Name);

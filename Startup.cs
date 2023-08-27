@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
 
 namespace PhotosService
 {
@@ -30,7 +31,7 @@ namespace PhotosService
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-           
+
             services.AddDbContext<AppDbContext> (optionsAction =>
             optionsAction.UseInMemoryDatabase("InMemnam"));
             services.AddScoped<IPhotoRepo, PhotoRepo>(); //IF they ask for IUser Repo we give them user repo
@@ -72,6 +73,26 @@ services.AddSwaggerGen(c =>
             */
 
             //app.UseHttpsRedirection();
+            
+        var staticFilesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "..", "Upload");
+        if (!Directory.Exists(staticFilesDirectory))
+        {
+            Directory.CreateDirectory(staticFilesDirectory);
+        }
+
+        // UseStaticFiles to serve static files from the created directory
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(staticFilesDirectory),
+            RequestPath = "/Upload"
+        });
+
+               app.UseStaticFiles(new StaticFileOptions
+        {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "..", "Upload")),
+                RequestPath = "/Upload" // The URL prefix to access your static files
+        });
 
             app.UseRouting();
 

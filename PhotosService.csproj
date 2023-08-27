@@ -28,4 +28,10 @@
   <ItemGroup>
   <Protobuf Include = "Protocols\dogs.proto" GrpcServices="Client" />
   </ItemGroup>
+
+   <ItemGroup>
+    <Folder Include="wwwroot\Export\" />
+    <Folder Include="wwwroot\Upload\product\" />
+  </ItemGroup>
+
 </Project>
